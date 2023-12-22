@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ0ebPsS3K7de_Xg2-Bgj1zjAaK_cwe9g&callback=console.debug&libraries=maps,marker&v=beta">
+    </script>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  </head>
+  <body>
+
+    <div class="topnav" id="myTopnav">
+      <a style="font-size: 24px;" href="/userPage" class="active">StruGo</a>
+      <a style="float: inline-end;" href="#about">About</a>
+      <a style="float: inline-end;" href="/userPage/add-business">Add Business</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+    
+
+    <div class="card">
+      <h2>StruGo: Your One-Stop Destination for Struga’s Local Businesses</h2>
+      <p>The Best Way to Find and Support Struga’s Businesses!</p>
+      <a href="/userPage/businesses"> <button class="btn1">Start Your Search</button></a>
+      <a href="#about"> <button class="btn2">About Us</button ></a> 
+    </div>
+    <div class="card-image">
+      <img src="/images/home.png" alt="Geometric Logo">
+    </div>
+
+
+    <div class="features">
+      <div class="feature-card big">
+          <div class="feature-image">
+            <img src="/images/struga.jpg" alt="Search Business">
+            <div class="i-text"> Explore the beauty, feel the tranquility</div>
+        </div>
+         
+      </div>
+
+
+      <div id="left-content" class="feature-card small">
+
+        <div class="map-container">
+
+        <iframe src="https://maps.googleapis.com/maps/embed/v1/place?key=AIzaSyCJ0ebPsS3K7de_Xg2-Bgj1zjAaK_cwe9g&q=Struga,North Macedonia&zoom=16"
+        width="100%" height="100%" style="border:40px; border-radius: 40px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+
+      </div>
+
+      </div>
+      
+      <div id="right-content" class="feature-card small ">
+        <div class="categories">
+          <h2 class="feature-title">Popular <br> Categories</h2>
+
+    
+          <ul>
+            <% for (var i = 0; i < Math.min(10, category.length); i++)  { %>
+              
+            <li><a href="/userPage/businesses/<%- category[i].category_id%>"><%- category[i].name%></a></li>
+           
+            <% } %> 
+          </ul>
+        </div>
+      </div>
+
+  </div>
+
+
+
+  
+
+    
+      <div id="about" class="about-wrapper">
+          <div class="about-header ">
+            <h1 class="about-heading ">About StruGo</h1>
+            <p class="about-subheading"></p>
+          </div>
+          
+          <div class="about-content  " data-animate="swipe-in">
+            <div class="about-section">
+              <div class="about-section-image">
+                <img src="images/struga2.jpg" alt="Struga" class="about-image">
+              </div>
+
+              <div class="about-section-text">
+                <h2 class="about-section-title">What is StruGo?</h2>
+                <p class="about-section-paragraph">StruGo is a website that helps you find the best local businesses in Struga, a city located on the shore of Lake Ohrid. Whether you are looking for restaurants, hotels, shops, services, or attractions, you can browse our directory and discover the best options for your needs.</p>
+              </div>
+            </div>
+
+            <div class="about-section ">
+              <div class="about-section-image">
+                <img src="images/struga1.jpg" alt="Purpose" class="about-image">
+              </div>
+              <div class="about-section-text">
+                <h2 class="about-section-title">What is our purpose?</h2>
+                <p class="about-section-paragraph">Our purpose is to provide you with a reliable and convenient source of information about the local businesses in Struga. We want to help you make informed decisions and support the local economy. We also want to help the local businesses showcase their products and services and reach more customers online.</p>
+              </div>
+            </div>
+           
+          </div>
+          <div class="about-footer">
+            <p class="about-footer-text">We hope you enjoy using our website and find it useful. If you have any questions, suggestions, or feedback, please feel free to contact us. Thank you for choosing StruGo!</p>
+          </div>
+        </div>
+
+        
+
+     
+     
+
+    <%- include('./partials/business_footer')  %>
+
+   
+
+

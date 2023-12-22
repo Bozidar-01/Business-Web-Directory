@@ -1,0 +1,144 @@
+<%- include('./partials/business_header')  %>
+
+<div class="add-body">
+<div class="add-row">
+    <div class="col-lg-12 offset-xl-2 col-sl-8 offset-xxl-3 col-xxl-6">
+
+        <h1 style=" text-align: start; color: #C0C0C0; margin: -20px 0 0 0;">Welcome!</h1>
+        <h4 style="  color: #C0C0C0; margin: 0 0 20px 0;">Please add your business</h4>
+
+        <form method="post" action="/userPage">
+            <div class="form-floating mb-2">
+                <Label for="name">Name: *</label> 
+                <input id="name" class="form-control" type="text"
+                <% if(formData.name && formData.name.value) {%>                         
+                    value="<%- formData.name.value%>"
+                <% } %>
+                 name="name" placeholder="Business Name">
+                
+                 <% if(formData.name && !formData.name.valid) {%>
+                    <div class="text-danger mt-1 ms-2">
+                        <small style="color: white;"> <%- formData.name.errorMsg %> </small>
+                    </div>
+                    <% } %>          
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="address">Address: *</label> 
+                <input id="address" class="form-control" type="text"
+                <% if(formData.address && formData.address.value) {%>                         
+                    value="<%- formData.address.value%>"
+                <% } %>
+                 name="address" placeholder="Business Address">
+                
+                    <% if(formData.address && !formData.address.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.address.errorMsg %> </small>
+                        </div>
+                        <% } %>                  
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="phone">Phone: *</label> 
+                <input id="phone" class="form-control" type="text"
+                <% if(formData.phone && formData.phone.value) {%>                         
+                    value="<%- formData.phone.value%>"
+                <% } %>
+                 name="phone" placeholder="Business Phone">
+                    <% if(formData.phone && !formData.phone.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.phone.errorMsg %> </small>
+                        </div>
+                        <% } %>              
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="description">Description: *</label>     
+                <input id="description" class="form-control" type="text"
+                <% if(formData.description && formData.description.value) {%>                         
+                    value="<%- formData.description.value%>"
+                <% } %>
+                 name="description" placeholder="Business Description">
+                    <% if(formData.description && !formData.description.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.description.errorMsg %> </small>
+                        </div>
+                        <% } %>              
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="workHours">Work Hours: *</label>     
+                <input id="workHours" class="form-control" type="text"
+                <% if(formData.workHours && formData.workHours.value) {%>                         
+                    value="<%- formData.workHours.value%>"
+                <% } %>
+                 name="workHours" placeholder="Business Work Hours">
+                    <% if(formData.workHours && !formData.workHours.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.workHours.errorMsg %> </small>
+                        </div>
+                        <% } %>              
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="location">Location: *</label>     
+                <input id="location" class="form-control" type="text"
+                <% if(formData.location && formData.location.value) {%>                         
+                    value="<%- formData.location.value%>"
+                <% } %>
+                 name="location" placeholder="Map Location">
+                    <% if(formData.location && !formData.location.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.location.errorMsg %> </small>
+                        </div>
+                        <% } %>              
+            </div>
+
+            <div class="form-floating mb-2">
+                <Label for="image">Image: *</label>     
+                <input id="image" class="form-control" type="text"
+                <% if(formData.image && formData.image.value) {%>                         
+                    value="<%- formData.image.value%>"
+                <% } %>
+                 name="image" placeholder="Business Image">
+                    <% if(formData.image && !formData.image.valid) {%>
+                        <div class="text-danger mt-1 ms-2">
+                            <small style="color: white;"> <%- formData.image.errorMsg %> </small>
+                        </div>
+                        <% } %>              
+            </div>
+
+         
+
+         
+            
+        
+
+            <div class="form-floating mb-2">
+                <Label style="margin-bottom: -22px;" for="image">Select Category: *</label>     
+                <select id="category_id" class="form-control" name="category_id" placeholder="Select the category" required>
+                  <option value="" disabled selected hidden>Categories</option>
+                  <% category.forEach((category) => { %>
+                    <option value="<%= category.category_id %>"><%= category.name %></option>
+                  <% }) %>
+                </select>
+            
+              </div>
+
+
+              </div>
+
+          
+            <div class="text-center">
+                <button class="add-button" type="submit">Submit</button>
+            </div>
+        </form>            
+
+        
+    </div>
+</div>
+
+
+
+
+<%- include('./partials/business_footer')  %>

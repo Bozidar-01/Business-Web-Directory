@@ -1,0 +1,36 @@
+<%- include('./partials/header')  %>
+<div class="backg1">
+
+  <div class="b-container">
+  
+    <div class="b-image">
+      <img  src="<%- business_info.image %>" alt="Business Image">
+    </div> 
+  
+    
+      <div class="b-info">
+        <h1 class="b-name"><%- business_info.name %></h1>
+           
+        <p class="b-address">Location: <%- business_info.address %></p>
+        <div class="desc">
+          <p class="b-contact fa fa-phone"> Phone: <%- business_info.phone %></p>
+          <p class="b-workHours fa fa-clock"> Working Time: <br> <%- business_info.workHours %></p>
+        </div>
+  
+  
+        <p class="b-description"> <%- business_info.description %></p>
+  
+       
+        
+          <iframe  class="b-map" src="<%- business_info.location %>"  width="500" height="300" style="border:0; border-radius: 12px;  position: absolute; margin-top: 18%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          
+   
+        
+      </div>
+      <button onclick="goBack()" class="b-button">Back To List</button>  
+    </div>
+  
+  
+  </div>
+
+<%- include('./partials/footer')  %>

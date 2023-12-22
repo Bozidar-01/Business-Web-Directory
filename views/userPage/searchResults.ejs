@@ -1,0 +1,40 @@
+<%- include('./partials/header')  %>
+
+
+<div class="backg">
+
+
+
+    <div class="business-container">
+      <h1>Find the best businesses using StruGo!</h1>
+      <h3>Showing Results For: "<%= searchTerm %>"</h3>
+      <ul class="business-list">
+        <% for(var i=0; i<results.length; i++ ) { %>
+            
+        
+        <li class="business-item">
+          <div class="business-image">
+            <img src="<%- results[i].image%>" alt="<%- results[i].name%>">
+          </div>
+          <div class="business-info">
+            <h2><%- results[i].name%></h2>
+            <p><%- results[i].address%></p>
+            <a href="/HomePage/business/search/<%- results[i].business_id%>" class="business-link">View</a>
+          </div>
+          <div class="business-keywords">
+            <span><%- results[i].description%></span>
+
+          </div>
+        </li>
+
+        <% } %> 
+      
+      </ul>
+    </div>
+
+  </div>
+
+
+
+
+<%- include('./partials/footer')  %>

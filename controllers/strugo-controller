@@ -1,0 +1,531 @@
+var express = require('express');
+var router = express.Router();
+
+var mysqlConfig = require('../connections/mysql');
+var connection = mysqlConfig.connection;
+
+
+
+var strugoService = require('../services/strugo-service');
+
+
+exports.index = async function (req, res, next) {
+
+    try {
+        let category = await strugoService.getAllCategories();
+
+        res.render('index', {
+            title: 'StruGO',
+            currentPage: 'home',
+            category
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.userPage = async function (req, res, next) {
+
+    try {
+        let category = await strugoService.getAllCategories();
+
+        res.render('userPage', {
+            title: 'StruGO',
+            currentPage: 'userPage',
+            category
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.account = async function (req, res, next) {
+    let userData = {};
+    try {
+        let message = '';
+        let success = '';
+
+
+        res.render('account', {
+            title: 'Sign Up / Login',
+            currentPage: 'account',
+            message: message,
+            success: success,
+            userData
+        });
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.getAcc = async function (req, res, next) {
+    let userData = {};
+    const email = req.body.email;
+    const password = req.body.password;
+    const results = await new Promise((resolve, reject) => {
+        connection.query("select * from users where email = ? and password = ?", [email, password], function (error, results, fields) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+
+    if (results.length > 0) {
+        res.redirect("/userPage");
+    }
+    else {
+        let success = "";
+        let message = "Account not found";
+        res.render('account', {
+            title: 'Sign Up / Login',
+            currentPage: 'account',
+            message: message,
+            success: success,
+            userData
+        });
+    }
+
+
+};
+
+exports.registerUser = async function (req, res, next) {
+
+    let userData = validateAndCreateUser(req.body);
+    let success = "Registration Was Successful, Please Log In!";
+    let message = "";
+    if (userData.valid) {
+
+
+        let input = {
+            name: userData.name.value,
+            email: userData.email.value,
+            password: userData.password.value,
+
+        };
+
+        await strugoService.registerUser(input);
+
+        console.log(input);
+
+        res.render('account', {
+            title: 'account',
+            currentPage: 'account',
+            success: success,
+            message: message,
+            userData
+        })
+
+
+    }
+
+    else {
+        let message = "Unsuccessful Registration, Please Try Again";
+        let success = "";
+        res.render('account', {
+            title: 'account',
+            currentPage: 'account',
+            message: message,
+            success: success,
+            userData
+        })
+    }
+
+}
+
+exports.showBusiness = async function (req, res, next) {
+
+    try {
+
+        res.render('business', {
+            title: 'Search',
+            currentPage: 'Search',
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.showBusinesses = async function (req, res, next) {
+
+    try {
+
+        res.render('businesses', {
+            title: 'Search',
+            currentPage: 'Search',
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+exports.showBusinessInfo = async function (req, res, next) {
+
+    try {
+
+        let id = Number(req.params.id ? req.params.id.replace(/[^\d].*/, '') : 0);
+
+
+        let business_info = await strugoService.getBusinessById(id);
+
+        res.render('business_info', {
+            title: 'Business Info',
+            currentPage: 'business_info',
+            business_info
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+exports.showBusinessInformation = async function (req, res, next) {
+
+    try {
+
+        let id = Number(req.params.id ? req.params.id.replace(/[^\d].*/, '') : 0);
+
+
+        let business_info = await strugoService.getBusinessById(id);
+
+        res.render('business_information', {
+            title: 'Business information',
+            currentPage: 'business_information',
+            business_info
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.showBusinessByCategory = async function (req, res, next) {
+
+    try {
+
+        let business_id = Number(req.params.id ? req.params.id.replace(/[^\d].*/, '') : 0);
+
+        let businessCategory = await strugoService.getBusinessByCategory(business_id);
+
+        res.render('businessCategory', {
+            title: 'Business List',
+            currentPage: 'business',
+            businessCategory
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+exports.showBusinessByCategories = async function (req, res, next) {
+
+    try {
+
+        let business_id = Number(req.params.id ? req.params.id.replace(/[^\d].*/, '') : 0);
+
+        let businessCategory = await strugoService.getBusinessByCategory(business_id);
+
+        res.render('businessCategories', {
+            title: 'Business List',
+            currentPage: 'business',
+            businessCategory
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+
+exports.newBusiness = async function (req, res, next) {
+    let formData = {};
+
+    try {
+
+
+
+        let category = await strugoService.getCategory();
+
+        res.render('add-business', {
+            title: 'Add a New Business',
+            currentPage: 'add-business',
+            formData,
+            category
+        });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+};
+
+exports.storeBusiness = async function (req, res, next) {
+
+    let formData = validateAndCreateBusinessFormData(req.body);
+    let category = await strugoService.getCategory();
+
+    if (formData.valid) {
+
+
+        let input = {
+            name: formData.name.value,
+            address: formData.address.value,
+            phone: formData.phone.value,
+            image: formData.image.value,
+            description: formData.description.value,
+            workHours: formData.workHours.value,
+            location: formData.location.value,
+            category_id: formData.category_id.value
+        };
+
+        await strugoService.storeNewBusiness(input);
+
+        console.log(input);
+
+        res.redirect('/userPage');
+
+    }
+
+    else {
+
+        res.render('add-business', {
+            title: 'Add New Business',
+            currentPage: 'add-business',
+            formData,
+            category
+        })
+    }
+
+}
+
+exports.searchBusinesses = (req, res) => {
+    const searchTerm = req.body.searchTerm;
+
+    strugoService.searchItems(searchTerm, (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        if (results.length === 0) {
+            // Render a view with "no result" message
+            return res.render('noResult', {
+                title: 'No Results',
+                currentPage: 'noResult',
+                searchTerm
+            });
+        }
+
+        // Render the search results view with the data
+        res.render('searchingResults', {
+            title: 'Search Results',
+            currentPage: 'searchResults',
+            results,
+            searchTerm
+        });
+    });
+};
+exports.searchBusiness = (req, res) => {
+    const searchTerm = req.body.searchTerm;
+
+    strugoService.searchItems(searchTerm, (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        if (results.length === 0) {
+            // Render a view with "no result" message
+            return res.render('noResult', {
+                title: 'No Results',
+                currentPage: 'noResult',
+                searchTerm
+            });
+        }
+
+        // Render the search results view with the data
+        res.render('searchResults', {
+            title: 'Search Results',
+            currentPage: 'searchResults',
+            results,
+            searchTerm
+        });
+    });
+};
+
+
+function validateAndCreateBusinessFormData(body) {
+
+    let name = body.name;
+    let address = body.address;
+    let phone = body.phone;
+    let image = body.image;
+    let description = body.description;
+    let workHours = body.workHours;
+    let location = body.location;
+    let category_id = body.category_id;
+
+    let formData = {
+        valid: true,
+        name: {
+            value: name
+        },
+        address: {
+            value: address
+        },
+        phone: {
+            value: phone
+        },
+        image: {
+            value: image
+        },
+        description: {
+            value: description
+        },
+        location: {
+            value: location
+        },
+        workHours: {
+            value: workHours
+        },
+        category_id: {
+            value: category_id
+        }
+    };
+
+    if (!name || name.length < 2) {
+        formData.name = {
+            valid: false,
+            errorMsg: 'Enter a Valid Name'
+        };
+
+        formData.valid = false;
+    }
+
+    if (!address || address.length < 2) {
+        formData.address = {
+            valid: false,
+            errorMsg: 'Enter a Valid Address'
+        };
+
+        formData.valid = false;
+    }
+
+    if (!phone || phone.length < 5) {
+        formData.phone = {
+            valid: false,
+            errorMsg: 'Enter a Valid Phone Number'
+        };
+
+        formData.valid = false;
+    }
+
+    if (!image || image.length < 10) {
+        formData.image = {
+            valid: false,
+            errorMsg: 'Enter a Valid Image URL'
+        };
+
+        formData.valid = false;
+    }
+
+    if (!description || description.length < 3) {
+        formData.description = {
+            valid: false,
+            errorMsg: 'Enter a Valid Description'
+        };
+        formData.valid = false;
+    }
+
+    if (!location || location.length < 20) {
+        formData.location = {
+            valid: false,
+            errorMsg: 'Enter a Valid Location'
+        };
+        formData.valid = false;
+    }
+
+    if (!workHours || workHours.length < 5) {
+        formData.workHours = {
+            valid: false,
+            errorMsg: 'Enter Valid Work Hours'
+        };
+        formData.valid = false;
+    }
+
+    return formData;
+}
+
+
+function validateAndCreateUser(body) {
+    let name = body.name
+    let email = body.email;
+    let password = body.password;
+
+
+    let userData = {
+        valid: true,
+        name: {
+            value: name
+        },
+        email: {
+            value: email
+        },
+        password: {
+            value: password
+        }
+    };
+    let pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+
+    if (!name || name.length < 2) {
+        userData.name = {
+            valid: false,
+            errorMsg: 'Enter a valid name'
+        };
+
+        userData.valid = false;
+    }
+
+    if (!pattern.test(email)) {
+        userData.email = {
+            valid: false,
+            errorMsg: 'Enter a valid email'
+        };
+
+        userData.valid = false;
+    }
+
+    if (!password || password.length < 5) {
+        userData.password = {
+            valid: false,
+            errorMsg: 'Enter a valid password'
+        };
+
+        userData.valid = false;
+    }
+
+    return userData;
+}
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJ0ebPsS3K7de_Xg2-Bgj1zjAaK_cwe9g&callback=console.debug&libraries=maps,marker&v=beta">
+    </script>
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+  </head>
+  <body>
+
+    <!-- <div class="navbar">
+      <a href="/"><h1>StruGo</h1></a>
+      <div class="search">
+
+        <form action="/HomePage/business/search" method="post" >
+  
+          <input type="text" id="searchInput" name="searchTerm" placeholder="Search here..."required>
+          <div id="suggestionsContainer"></div>  
+        </form>
+
+
+  
+      </div>
+      <ul class="navLinks">
+        <li><a  href="/">Home</a></li>
+        <li><a href="/#about">About</a></li>
+      </ul>
+    </div> -->
+
+    <div class="topnav" id="myTopnav">
+      <a style="font-size: 24px;" href="/" class="active">StruGo</a>
+   
+      <a style=" float: right;" href="/#about">About</a>
+      <a style=" float: right;" href="/">Home</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+      <div id="searchbar" class="search">
+        <form action="/HomePage/business/search" method="post" >
+    
+          <input type="text" id="searchInput" name="searchTerm" placeholder="Search here..."required>
+        </form>
+      </div>
+    </div>

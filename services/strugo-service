@@ -1,0 +1,113 @@
+var mysqlConfig = require('../connections/mysql');
+var connection = mysqlConfig.connection;
+
+getAllCategories = () => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM category', (error, elements) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+};
+
+
+getBusinessById = (id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM business WHERE business_id= ' + id, (error, elements) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(elements[0]);
+        });
+    });
+};
+
+getBusinessByCategory = (business_id) => {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM business WHERE category_id= ' + business_id, (error, elements) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+};
+
+storeNewBusiness = (input) => {
+    return new Promise((resolve, reject) => {
+        let sql = "INSERT INTO `business` (`name`, `address`, `phone`, `image`, `description`, `workHours`, `location`, `category_id` ) VALUES ('" + input.name + "', '" + input.address + "', '" + input.phone + "', '" + input.image + "', '" + input.description + "', '" + input.workHours + "',  '" + input.location + "', '" + input.category_id + "')";
+
+        connection.query(sql, (error, car) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(car);
+        });
+    });
+};
+
+getCategory = () => {
+    return new Promise((resolve, reject) => {
+        let sql = "SELECT * FROM category";
+
+        connection.query(sql, (error, category) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(category);
+        });
+    });
+};
+
+searchItems = (searchTerm, callback) => {
+    const query = 'SELECT * FROM business WHERE description LIKE ? OR name LIKE ? OR address LIKE ? ';
+    connection.query(query, [`%${searchTerm}%`, `%${searchTerm}%`, `%${searchTerm}%`], (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            callback(err, null);
+            return;
+        }
+
+        callback(null, results);
+    });
+};
+
+getAcc = (email, password, callback) => {
+    const query = 'SELECT * FROM users WHERE email LIKE ? OR password LIKE ? ';
+    connection.query(query, [`%${email}%`, `%${password}%`], (err, results) => {
+        if (err) {
+            console.error('Error executing MySQL query:', err);
+            callback(err, null);
+            return;
+        }
+
+        callback(null, results);
+    });
+};
+
+registerUser = (input) => {
+    return new Promise((resolve, reject) => {
+        let sql = "INSERT INTO `users` (`name`, `email`, `password`) VALUES ('" + input.name + "', '" + input.email + "','" + input.password + "')";
+
+        connection.query(sql, (error, car) => {
+            if (error) {
+                return reject(error);
+            }
+            return resolve(car);
+        });
+    });
+};
+
+module.exports = {
+    getAllCategories,
+    getBusinessById,
+    getBusinessByCategory,
+    storeNewBusiness,
+    getCategory,
+    searchItems,
+    getAcc,
+    registerUser
+
+}
