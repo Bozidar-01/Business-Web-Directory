@@ -111,14 +111,14 @@ body {
   }
   
   .topnav .search input {
-    width:100% !important;
+    width:85% !important;
     height: 50px;
     border: 1px solid #3B3B3B;
     background: #F2F4F3;
     color: black;
     border-radius: 50px;  
    
-    padding: 10px 30px 10px 20px;
+    padding: 10px 10px 10px 20px;
     outline: none;
   }
 }
@@ -150,6 +150,31 @@ body {
 
 }
 
+@media (max-height:1080px) {
+  
+  /* Change the display property of the navbar li elements from inline-block to block */
+  .topnav li {
+    display:block; 
+  }
+
+  /* Change the margin property of the navbar items from auto to auto and add a top margin of -20px */
+  .topnav li {
+    margin:auto; 
+    margin-top:-10px; 
+    font-size: small;
+  }
+
+  /* Change the flex property of the .search element from flex-grow to flex-shrink */
+
+
+  /* Change the width property of the input element from auto to max-content */
+ .search  {
+    width:max-content; 
+    margin-left: 33%;
+  }
+
+}
+
 @keyframes swipeLeft {
   0% {
     transform: translateX(-120%) translateZ(0);
@@ -174,13 +199,13 @@ body {
 }
 @media screen and (max-width: 600px) {
   .card{
-    width: 92vw;
-    height: 50vh;
-    margin-bottom: 75%;
-    margin-top: 45%;
-    margin-left: 15px;
-    animation: none;
-    font-size: small;
+    width: 92vw !important;
+    height: 50vh !important;
+    margin-bottom: 75% !important;
+    margin-top: 45% !important;
+    margin-left: 15px !important;
+    animation: none !important;
+    font-size: small !important;
   }
   .card h2 {
    
@@ -188,24 +213,24 @@ body {
    
   }
   .card p {
-  color: #6B7280;
-  text-align: left;
-  font-size: 20px ;
-  margin-bottom: 20px;
-  margin-left: 5%;
+  color: #6B7280 !important;
+  text-align: left !important;
+  font-size: 20px !important;
+  margin-bottom: 20px !important;
+  margin-left: 5% !important;
 }
 .card button {
-  display: inline-block;
-  border: 1px black ;
-  width: 300px;
-  height: 45px !important;
+  display: inline-block !important;
+  border: 1px black !important;
+  width: 300px !important;
+  height: 45px !important ;
   margin-top: 5% !important;
-  margin-left: 6%;
-  border-radius: 10px;
-  border-style: solid;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+  margin-left: 3% !important;
+  border-radius: 10px !important; 
+  border-style: solid !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
 }
 
 .card-image img {
@@ -281,13 +306,40 @@ body {
 }
 
 @media (max-height: 1080px) {
+  .card{
+    height: 65vh;
+    width: 35vw;
+    margin-top: 5%;
+  }
+
+  .btn1{
+    width: 13.5vw !important;
+    height: 8vh !important;
+    font-size: 13px !important;
+  }
+
+  .btn2{
+    width: 13.5vw !important;
+    height: 8vh !important;
+    font-size: 13px !important;
+
+  }  
+
+  .card h2{
+    font-size: 43px;
+  }
+  
+    .card p{
+      font-size: 17px;
+    }
+
   .card-image {
-    width: 55vw;
-    height: 80vh;
+    width: 62vw;
+    height: 95vh;
     margin-left: 20px;
     position: absolute;
     right: 0;
-    top:45%;
+    top:55%;
     transform: translateY(-50%);
     z-index: -1;
   }
@@ -354,10 +406,10 @@ body {
 
 @media (max-width: 600px) {
   .feature-image {
-    width: 93%;
-    height: 50vh;
-    margin-top: -1%;
-    margin-left: -4% ;
+    width: 93% !important;
+    height: 50vh !important;
+    margin-top: -1% !important;
+    margin-left: -4%  !important;
 
   }
   .i-text {
@@ -382,7 +434,7 @@ body {
   }
 
   .categories ul{
-    margin-right: 15% !important;
+    margin-right: 25% !important;
     justify-content: space-between !important;
   }
 
@@ -394,7 +446,7 @@ body {
     font-size: 15px !important;
     height: 5vh !important;
     flex: 0 1 calc(25.33% - 10px) !important; /* Adjust the percentage as needed */
-    max-width: calc(25.33% - 10px) !important; /* Adjust the percentage as needed */
+    max-width: calc(33.33% - 15px) !important; /* Adjust the percentage as needed */
   }
 }
 .i-text {
@@ -497,12 +549,19 @@ body {
 
 @media (max-height: 1080px) {
   .categories a {
-
-    width: 10vw;
+    height: 9vh;
+    width: 8vw;
+    margin-top: 10px;
+    font-size: 14px;
   }
-  .categories li {
-    margin-right: 35px;
+  .categories ul {
+    margin-right:5px;
+    margin-top: 11px;
 
+  }
+  .categories li{
+    height: 8vh;
+    margin-top: 10px !important;
   }
 }
 
@@ -575,7 +634,7 @@ body {
     margin-left: 37% !important;
   }
   .contact2{
-    margin-right: 12% ;
+    margin-left: 28% !important;
   }
 }
 
@@ -662,7 +721,7 @@ body {
 .map2 {
   width: 40%;
   height: 150px;
-  margin-right: -15%;
+  margin-right: 0%;
   margin-top: 10px;
 }
 
@@ -761,6 +820,15 @@ p {
 @media (min-width: 901px) {
   .business-list {
     grid-template-columns: repeat(4, 1fr); 
+  }
+
+  @media (min-width: 1080px) {
+    .business-item{
+      width:16vw !important;
+    }
+    .business-keywords{
+      max-width: 9vw !important;
+    }
   }
   
 .business-item {
@@ -914,6 +982,20 @@ p {
   font-size: 12px;
   border-radius: 4px;
 }
+@media screen and (max-height: 1080px) {
+
+  .business-item {
+    width: 110%; 
+    height: 400px;
+  
+  }
+
+  .image-container img {
+  margin-top: 1% !important;
+  }
+
+  
+}
 
 /* BUSINESS PAGE STYLING ENDS HERE */
 
@@ -1037,84 +1119,113 @@ padding-bottom: 46%;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr;
       grid-gap: 10px;
-      width: 80%;
+      width: 85%;
       height: auto;
       margin: 140px auto; 
       border: 1px solid black;
       padding: 10px;
+      margin-top: 52px !important;
     
     }
 
     .b-contact {
-      margin-top: -12%;
+      margin-top: 22%;
+      margin-bottom: 22px;
       margin-left: 7%;
       align-self: start;
-      font-size: 20px;
+      font-size: 15px;
       color: #f1faee;
     }
 
     .b-workHours {
       align-self: start;
       margin-left: 7%;
-      margin-top: -40%;
+      margin-top: -30%;
       padding-bottom: 38%;
-      font-size: 20px;
+      font-size: 15px;
       text-align: justify;
       color: #f1faee;
     }
+    .b-description{
+      font-size: 15px;
+    }
+
+    .b-name {
+      margin-top: -10%;
+      font-size: 32px !important;
+    }
+    .b-address{
+      margin-top: -8%;
+      font-size: 18px !important;
+    }
+
+    .b-map{
+      height: 28vh;
+      width: 22vw;
+      bottom: 0 !important;
+      margin-bottom: 6%;
+    }
+    .b-button {  
+       width: 100px; 
+       height: 40px; 
+      
+      }
+
+  
   }
 
 @media screen and (max-width: 768px) {
   .b-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
-    margin-top:60px;
-    height: 100vh;
-    width: 95vw;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto auto !important;
+    margin-top:60px !important;
+    height: 100vh !important;
+    width: 95vw !important;
   }
 
   .b-info {
-    margin-top: 10px;
-    height: 67vh;
+    margin-top: 10px !important;
+    height: 67vh !important;
   }
 
   .b-image {
-    width: 100%;
-    height: 28vh;
+    width: 100% !important;
+    height: 28vh !important;
   }
 
   .b-name {
-    margin-top: -45%;
-    font-size: 30px !important;
+    margin-top: -45% !important;
+    font-size: 25px !important;
   }
   .b-address{
-    margin-top: -45%;
+    margin-top: -40% !important;
     font-size: 20px !important;
   }
   .b-description{
-    margin-bottom: 35%;
-    margin-top: -40%;
+    margin-bottom: 35% !important;
+    margin-top: -40% !important;
     font-size: 98% !important;
   }
   .b-workHours{
-    margin-bottom: -35%;
+    margin-bottom: -30% !important;
     font-size: 90% !important;
   }
 .desc{
-  margin-top:-35%;
+  margin-top:-35% !important;
 
 }
 .b-contact{
-  margin-bottom: 10%;
+  margin-bottom: 18% !important;
   font-size: 90% !important;
 }
   .b-map{
-    height: 20vh;
-    width: 80vw;
+    height: 20vh !important;
+    width: 80vw !important;
     bottom: 0 !important;
     margin-bottom: 22%;
   }
 }
+
 
 @media screen and (max-width: 600px) { .b-name { font-size: 32px; } }
 @media screen and (min-width: 601px) and (max-width: 1200px) { /* Styles for medium screens */ }
@@ -1234,23 +1345,25 @@ padding-bottom: 46%;
 
     .about-header {
       margin: auto;
-      width: 90%;
+      width: 85%;
       border-radius: 85px;
       background-color: #718F94;
       opacity: 0.8;
-      padding: 2px;
       text-align: center;
       margin-top: 110px;
       margin-bottom: -120px;
     }
     .about-heading {
-      font-size: 38px !important;
+      font-size: 34px !important;
+      padding: 1%;
     }
     .about-subheading {
       font-size: 20px;
     }
     
-  
+  .about-content{
+    margin-left: -2.5% !important;
+  }
 
   .about-section-image {
     height: 200px; /* Adjust height for even smaller screens */
@@ -1283,6 +1396,7 @@ padding-bottom: 46%;
   .about-section-image {
     height: 350px; /* Adjust height for even smaller screens */
   }
+
 
   .about-section-title {
     font-size: 20px; /* Adjust font size for even smaller screens */
@@ -1339,6 +1453,17 @@ padding-bottom: 46%;
     margin-top:15px !important;   
   
   }
+}
+
+@media (max-height: 1080px) {
+  .add-body {
+  
+    height: 121vh !important;
+    padding-top: 35% !important;
+    padding-bottom: 35% !important;
+  
+  }
+ 
 }
 
 /* Style for the form elements */
@@ -1533,6 +1658,7 @@ color: white;
 
 .search-bar-page button img{
   width: 25px;
+  margin-left: -312% !important;
 }
 
 .search-bar-page button{
